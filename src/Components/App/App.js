@@ -44,6 +44,9 @@ class App extends React.Component {
   }
 
   savePlaylist() {
+    if (!this.state.playlistTracks.length) {
+      return;
+    }
     const trackUris = this.state.playlistTracks.map(track => track.uri);
     Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
       this.setState({
@@ -54,6 +57,9 @@ class App extends React.Component {
   }
 
   search(term) {
+    if (!term) {
+      return;
+    }
     Spotify.search(term).then(searchResults => {
       this.setState({searchResults: searchResults});
     });
